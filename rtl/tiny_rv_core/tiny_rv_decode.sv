@@ -51,6 +51,10 @@ always @(posedge i_clk) begin
             `RV_AUIPC: decode_imm32 <= {fetch_inst[31:12], 12'b0};
         // J Type Imm
             `RV_JAL: decode_imm32 <= {{12{fetch_inst[31]}}, fetch_inst[19:12], fetch_inst[20], fetch_inst[30:25], fetch_inst[24:21], 1'b0};
+        // B Type Imm
+            `RV_BRANCH: decode_imm32 <= {{20{fetch_inst[31]}}, fetch_inst[7], fetch_inst[30:25], fetch_inst[11:8], 1'b0};
+        // ALUI
+            `RV_ALUI: decode_imm32 <= {{21{fetch_inst[31]}}, fetch_inst[30:20]};
             default: decode_imm32 <= 0;
         endcase
     end

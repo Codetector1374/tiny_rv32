@@ -25,13 +25,13 @@ always @(posedge i_clk) begin
             if (i_ld_new_addr) begin
             current_pc <= i_new_addr + 4; // Current PC should set to the next;
             o_fetched_pc <= i_new_addr;
-            o_fetched_inst <= imem[i_new_addr];
+            o_fetched_inst <= imem[i_new_addr[17:2]];
             end
         end
         else if (!i_pipe_stall) begin
             current_pc <= current_pc + 4;
             o_fetched_pc <= current_pc;
-            o_fetched_inst <= imem[current_pc];
+            o_fetched_inst <= imem[current_pc[17:2]];
         end
     end
 end

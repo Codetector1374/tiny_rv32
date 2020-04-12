@@ -31,6 +31,18 @@ int main(int argc, char** argv) {
 
   for (int i = 0; i < 100 * 1000; ++i) {
     tb->tick();
+    if (tb->m_core->tiny_rv__DOT__rr_opcode == 0b1110011 && tb->m_core->tiny_rv__DOT__rr_funct3 == 0) {
+        uint16_t csr = tb->m_core->tiny_rv__DOT__exec__DOT__rr_csr;
+        uint32_t GP = tb->m_core->tiny_rv__DOT__dprf__DOT__registers[3];
+        if (tb->m_core->tiny_rv__DOT__exec__DOT__exec_rd == 3) {
+            GP = tb->m_core->tiny_rv__DOT__exec__DOT__exec_rd_val;
+        }
+        printf("SYSTEM: CSR: %X: GP(r3) = 0x%08X\n", csr, GP);
+        if (csr == 0x0) {
+            printf("ECALL EXIT on test case %d, status = %d", GP >> 1, GP & 0x1);
+            break;
+        }
+    }
   }
 
 #if DO_TRACE

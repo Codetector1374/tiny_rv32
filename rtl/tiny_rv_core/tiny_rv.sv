@@ -58,8 +58,8 @@ tiny_rv_decode decode(
 wire [4:0] read_addr1, read_addr2, write_addr1;
 wire [31:0] read_data1, read_data2, write_data1;
 
-wire [4:0] of1_reg, of2_reg;
-wire [31:0] of1_val, of2_val;
+wire [4:0] of1_reg;
+wire [31:0] of1_val;
 
 tiny_rv_dprf dprf (
     .i_clk,
@@ -106,9 +106,9 @@ tiny_rv_rr reg_read (
     .data_p2(read_data2),
 
     .of1_reg, 
-    .of2_reg,
+    .of2_reg(write_addr1),
     .of1_val, 
-    .of2_val,
+    .of2_val(write_data1),
 
     .rr_pc,
     .rr_inst,
@@ -122,8 +122,6 @@ tiny_rv_rr reg_read (
 );
 
 wire [31:0] exec_pc, exec_inst;
-wire [31:0] exec_rd_val;
-wire [4:0] exec_rd;
 
 tiny_rv_exec exec(
     .i_clk,
@@ -147,6 +145,9 @@ tiny_rv_exec exec(
     // Writeback
     .exec_rd(write_addr1),
     .exec_rd_val(write_data1),
+
+    .of1_reg,
+    .of1_val,
 
     .new_pc,
     .ld_new_pc

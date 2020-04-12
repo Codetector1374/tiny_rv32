@@ -4,7 +4,7 @@ module tiny_rv_tb_fetch(
 
     input wire i_pipe_stall,
     input wire i_pipe_flush,
-    input wire [31:0] i_ld_new_addr,
+    input wire i_ld_new_addr,
     input wire [31:0] i_new_addr,
 
     output reg [31:0] o_fetched_pc,

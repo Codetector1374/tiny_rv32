@@ -38,7 +38,7 @@ tiny_rv_decode decode(
     .i_clk,
     .i_reset,
 
-    .i_pipe_stall(i_pipe_stall),
+    .i_pipe_stall(pipe_stall),
     .i_pipe_flush(pipe_flush),
 
     .fetch_pc,
@@ -120,6 +120,39 @@ tiny_rv_rr reg_read (
     .rr_funct7,
     .rr_imm32
 );
+
+wire [31:0] exec_pc, exec_inst;
+wire [31:0] exec_rd_val;
+wire [4:0] exec_rd;
+
+tiny_rv_exec exec(
+    .i_clk,
+    .i_reset,
+
+    .exec_rr_stall(pipe_stall), 
+    .exec_rr_flush(pipe_flush),
+
+    .rr_pc,
+    .rr_inst,
+    .rr_opcode,
+    .rr_rd,
+    .rr_rs1,
+    .rr_rs2,
+    .rr_funct3,
+    .rr_funct7,
+    .rr_imm32,
+
+    .exec_pc,
+    .exec_inst,
+    // Writeback
+    .exec_rd(write_addr1),
+    .exec_rd_val(write_data1),
+
+    .new_pc,
+    .ld_new_pc
+);
+
+
 
 
 endmodule

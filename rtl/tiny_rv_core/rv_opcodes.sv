@@ -1,3 +1,6 @@
+`ifndef RISCV_OPCODES
+`define RISCV_OPCODES
+
 `define RV_LUI      7'b0110111
 `define RV_AUIPC    7'b0010111
 `define RV_JAL      7'b1101111
@@ -40,3 +43,5 @@
 `define RV_BR_GE    3'b101
 `define RV_BR_LTU   3'b110
 `define RV_BR_GEU   3'b111
+
+`endif

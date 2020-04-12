@@ -24,8 +24,10 @@ always @(*) begin
         read_data2 = registers[read_addr2];
     else
         read_data2 = 32'h0;
-endmodule
+end
 
 always @(posedge i_clk) begin
     registers[write_addr1] <= write_data1;
 end
+
+endmodule

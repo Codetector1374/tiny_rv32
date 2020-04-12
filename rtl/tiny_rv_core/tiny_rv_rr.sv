@@ -47,7 +47,7 @@ always @(posedge i_clk) begin
         rr_rs1 <= 0;
         rr_rs2 <= 0;
         rr_funct3 <= 0;
-        rr_funct <= 0;
+        rr_funct7 <= 0;
         rr_imm32 <= 0;
     end 
     else if (!i_pipe_stall) begin
@@ -57,7 +57,7 @@ always @(posedge i_clk) begin
         rr_opcode <= decode_opcode;
         rr_rd <= decode_rd;
         rr_funct3 <= decode_funct3;
-        rr_funct <= decode_funct7;
+        rr_funct7 <= decode_funct7;
         rr_imm32 <= decode_imm32;
 
         // Register Forwarding RS1
@@ -67,7 +67,7 @@ always @(posedge i_clk) begin
         else if (decode_rs1 == of1_reg) begin
             rr_rs1 <= of1_val;
         end
-        else if (decode_rs1 == of2_ref) begin
+        else if (decode_rs1 == of2_reg) begin
             rr_rs1 <= of2_val;
         end
         else begin
@@ -80,7 +80,7 @@ always @(posedge i_clk) begin
         else if (decode_rs2 == of1_reg) begin
             rr_rs2 <= of1_val;
         end
-        else if (decode_rs2 == of2_ref) begin
+        else if (decode_rs2 == of2_reg) begin
             rr_rs2 <= of2_val;
         end
         else begin

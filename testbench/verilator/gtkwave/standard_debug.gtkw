@@ -1,0 +1,233 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Sun Apr 12 17:39:48 2020
+[*]
+[dumpfile] "/home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/cmake-build-debug/trace.vcd"
+[dumpfile_mtime] "Sun Apr 12 17:25:37 2020"
+[dumpfile_size] 44789545
+[savefile] "/home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/standard_debug.gtkw"
+[timestart] 8
+[size] 2556 1389
+[pos] -1 -1
+*-5.000000 70 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[treeopen] TOP.tiny_rv.
+[sst_width] 211
+[signals_width] 311
+[sst_expanded] 1
+[sst_vpaned_height] 426
+@28
+TOP.i_clk
+TOP.i_reset
+TOP.tiny_rv.pipe_flush
+TOP.tiny_rv.pipe_stall
+@800200
+-Fetch
+@c00022
+TOP.tiny_rv.fetch.current_pc[31:0]
+@28
+(0)TOP.tiny_rv.fetch.current_pc[31:0]
+(1)TOP.tiny_rv.fetch.current_pc[31:0]
+(2)TOP.tiny_rv.fetch.current_pc[31:0]
+(3)TOP.tiny_rv.fetch.current_pc[31:0]
+(4)TOP.tiny_rv.fetch.current_pc[31:0]
+(5)TOP.tiny_rv.fetch.current_pc[31:0]
+(6)TOP.tiny_rv.fetch.current_pc[31:0]
+(7)TOP.tiny_rv.fetch.current_pc[31:0]
+(8)TOP.tiny_rv.fetch.current_pc[31:0]
+(9)TOP.tiny_rv.fetch.current_pc[31:0]
+(10)TOP.tiny_rv.fetch.current_pc[31:0]
+(11)TOP.tiny_rv.fetch.current_pc[31:0]
+(12)TOP.tiny_rv.fetch.current_pc[31:0]
+(13)TOP.tiny_rv.fetch.current_pc[31:0]
+(14)TOP.tiny_rv.fetch.current_pc[31:0]
+(15)TOP.tiny_rv.fetch.current_pc[31:0]
+(16)TOP.tiny_rv.fetch.current_pc[31:0]
+(17)TOP.tiny_rv.fetch.current_pc[31:0]
+(18)TOP.tiny_rv.fetch.current_pc[31:0]
+(19)TOP.tiny_rv.fetch.current_pc[31:0]
+(20)TOP.tiny_rv.fetch.current_pc[31:0]
+(21)TOP.tiny_rv.fetch.current_pc[31:0]
+(22)TOP.tiny_rv.fetch.current_pc[31:0]
+(23)TOP.tiny_rv.fetch.current_pc[31:0]
+(24)TOP.tiny_rv.fetch.current_pc[31:0]
+(25)TOP.tiny_rv.fetch.current_pc[31:0]
+(26)TOP.tiny_rv.fetch.current_pc[31:0]
+(27)TOP.tiny_rv.fetch.current_pc[31:0]
+(28)TOP.tiny_rv.fetch.current_pc[31:0]
+(29)TOP.tiny_rv.fetch.current_pc[31:0]
+(30)TOP.tiny_rv.fetch.current_pc[31:0]
+(31)TOP.tiny_rv.fetch.current_pc[31:0]
+@1401200
+-group_end
+@28
+TOP.tiny_rv.fetch.i_ld_new_addr
+@22
+TOP.tiny_rv.fetch.i_new_addr[31:0]
+TOP.tiny_rv.fetch.o_fetched_pc[31:0]
+TOP.tiny_rv.fetch.o_fetched_inst[31:0]
+@1000200
+-Fetch
+@800200
+-Decode
+@22
+[color] 2
+TOP.tiny_rv.decode.decode_pc[31:0]
+[color] 2
+TOP.tiny_rv.decode.decode_inst[31:0]
+@2028
+[color] 2
+^1 /home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/opcode.dict
+TOP.tiny_rv.decode.decode_opcode[6:0]
+@24
+[color] 2
+TOP.tiny_rv.decode.decode_rs1[4:0]
+[color] 2
+TOP.tiny_rv.decode.decode_rs2[4:0]
+[color] 2
+TOP.tiny_rv.decode.decode_rd[4:0]
+@22
+[color] 2
+TOP.tiny_rv.decode.decode_imm32[31:0]
+@28
+[color] 2
+TOP.tiny_rv.decode.decode_funct3[2:0]
+@22
+[color] 2
+TOP.tiny_rv.decode.decode_funct7[6:0]
+@1000200
+-Decode
+@800200
+-RegRead
+@24
+TOP.tiny_rv.reg_read.decode_rs1[4:0]
+TOP.tiny_rv.reg_read.decode_rs2[4:0]
+TOP.tiny_rv.reg_read.of1_reg[4:0]
+@22
+TOP.tiny_rv.reg_read.of1_val[31:0]
+@24
+TOP.tiny_rv.reg_read.of2_reg[4:0]
+@22
+TOP.tiny_rv.reg_read.of2_val[31:0]
+@24
+TOP.tiny_rv.reg_read.read_p1[4:0]
+TOP.tiny_rv.reg_read.read_p2[4:0]
+@22
+TOP.tiny_rv.reg_read.data_p1[31:0]
+TOP.tiny_rv.reg_read.data_p2[31:0]
+@200
+-
+@22
+TOP.tiny_rv.reg_read.rr_pc[31:0]
+TOP.tiny_rv.reg_read.rr_inst[31:0]
+@2028
+^1 /home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/opcode.dict
+TOP.tiny_rv.reg_read.rr_opcode[6:0]
+@22
+TOP.tiny_rv.reg_read.rr_rs1[31:0]
+TOP.tiny_rv.reg_read.rr_rs2[31:0]
+@24
+TOP.tiny_rv.reg_read.rr_rd[4:0]
+@22
+TOP.tiny_rv.reg_read.rr_imm32[31:0]
+@28
+TOP.tiny_rv.reg_read.rr_funct3[2:0]
+@22
+TOP.tiny_rv.reg_read.rr_funct7[6:0]
+@1000200
+-RegRead
+@800200
+-Exec
+@c00023
+[color] 2
+TOP.tiny_rv.exec.exec_inst[31:0]
+@29
+(0)TOP.tiny_rv.exec.exec_inst[31:0]
+(1)TOP.tiny_rv.exec.exec_inst[31:0]
+(2)TOP.tiny_rv.exec.exec_inst[31:0]
+(3)TOP.tiny_rv.exec.exec_inst[31:0]
+(4)TOP.tiny_rv.exec.exec_inst[31:0]
+(5)TOP.tiny_rv.exec.exec_inst[31:0]
+(6)TOP.tiny_rv.exec.exec_inst[31:0]
+(7)TOP.tiny_rv.exec.exec_inst[31:0]
+(8)TOP.tiny_rv.exec.exec_inst[31:0]
+(9)TOP.tiny_rv.exec.exec_inst[31:0]
+(10)TOP.tiny_rv.exec.exec_inst[31:0]
+(11)TOP.tiny_rv.exec.exec_inst[31:0]
+(12)TOP.tiny_rv.exec.exec_inst[31:0]
+(13)TOP.tiny_rv.exec.exec_inst[31:0]
+(14)TOP.tiny_rv.exec.exec_inst[31:0]
+(15)TOP.tiny_rv.exec.exec_inst[31:0]
+(16)TOP.tiny_rv.exec.exec_inst[31:0]
+(17)TOP.tiny_rv.exec.exec_inst[31:0]
+(18)TOP.tiny_rv.exec.exec_inst[31:0]
+(19)TOP.tiny_rv.exec.exec_inst[31:0]
+(20)TOP.tiny_rv.exec.exec_inst[31:0]
+(21)TOP.tiny_rv.exec.exec_inst[31:0]
+(22)TOP.tiny_rv.exec.exec_inst[31:0]
+(23)TOP.tiny_rv.exec.exec_inst[31:0]
+(24)TOP.tiny_rv.exec.exec_inst[31:0]
+(25)TOP.tiny_rv.exec.exec_inst[31:0]
+(26)TOP.tiny_rv.exec.exec_inst[31:0]
+(27)TOP.tiny_rv.exec.exec_inst[31:0]
+(28)TOP.tiny_rv.exec.exec_inst[31:0]
+(29)TOP.tiny_rv.exec.exec_inst[31:0]
+(30)TOP.tiny_rv.exec.exec_inst[31:0]
+(31)TOP.tiny_rv.exec.exec_inst[31:0]
+@1401201
+-group_end
+@23
+[color] 2
+TOP.tiny_rv.exec.exec_pc[31:0]
+@25
+[color] 2
+TOP.tiny_rv.exec.exec_rd[4:0]
+@23
+[color] 2
+TOP.tiny_rv.exec.exec_rd_val[31:0]
+@29
+[color] 2
+TOP.tiny_rv.exec.exec_rr_flush
+[color] 2
+TOP.tiny_rv.exec.exec_rr_stall
+@1000200
+-Exec
+@c00200
+-DPRF
+@22
+TOP.tiny_rv.dprf.registers(0)[31:0]
+TOP.tiny_rv.dprf.registers(1)[31:0]
+TOP.tiny_rv.dprf.registers(2)[31:0]
+TOP.tiny_rv.dprf.registers(3)[31:0]
+TOP.tiny_rv.dprf.registers(4)[31:0]
+TOP.tiny_rv.dprf.registers(5)[31:0]
+TOP.tiny_rv.dprf.registers(6)[31:0]
+TOP.tiny_rv.dprf.registers(7)[31:0]
+TOP.tiny_rv.dprf.registers(8)[31:0]
+TOP.tiny_rv.dprf.registers(9)[31:0]
+TOP.tiny_rv.dprf.registers(10)[31:0]
+TOP.tiny_rv.dprf.registers(11)[31:0]
+TOP.tiny_rv.dprf.registers(12)[31:0]
+TOP.tiny_rv.dprf.registers(13)[31:0]
+TOP.tiny_rv.dprf.registers(14)[31:0]
+TOP.tiny_rv.dprf.registers(15)[31:0]
+TOP.tiny_rv.dprf.registers(16)[31:0]
+TOP.tiny_rv.dprf.registers(17)[31:0]
+TOP.tiny_rv.dprf.registers(18)[31:0]
+TOP.tiny_rv.dprf.registers(19)[31:0]
+TOP.tiny_rv.dprf.registers(20)[31:0]
+TOP.tiny_rv.dprf.registers(21)[31:0]
+TOP.tiny_rv.dprf.registers(22)[31:0]
+TOP.tiny_rv.dprf.registers(23)[31:0]
+TOP.tiny_rv.dprf.registers(24)[31:0]
+TOP.tiny_rv.dprf.registers(25)[31:0]
+TOP.tiny_rv.dprf.registers(26)[31:0]
+TOP.tiny_rv.dprf.registers(27)[31:0]
+TOP.tiny_rv.dprf.registers(28)[31:0]
+TOP.tiny_rv.dprf.registers(29)[31:0]
+TOP.tiny_rv.dprf.registers(30)[31:0]
+TOP.tiny_rv.dprf.registers(31)[31:0]
+@1401200
+-DPRF
+[pattern_trace] 1
+[pattern_trace] 0

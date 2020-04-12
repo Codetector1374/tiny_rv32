@@ -17,11 +17,11 @@ always @* begin
     case(opcode)
         `RV_LUI: begin
             active = 1;
-            result = {imm[19:0], 12'b0};
+            result = imm
         end
         `RV_AUIPC: begin
             active = 1;
-            result = {imm[19:0], 12'b0} + pc;
+            result = imm + pc;
         end
         default: begin
             result = 32'b0; active = 0;

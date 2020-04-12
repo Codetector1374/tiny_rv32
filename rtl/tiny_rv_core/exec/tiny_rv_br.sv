@@ -10,11 +10,11 @@ module tiny_rv_br(
     input wire [31:0] rs1,
     input wire [31:0] rs2,
 
-    output wire br_taken,
-    output wire [31:0] br_addr,
+    output reg br_taken,
+    output reg [31:0] br_addr,
 
-    output wire active,
-    output wire [31:0] result
+    output reg active,
+    output reg [31:0] result
 );
 
 always @* begin
@@ -36,12 +36,12 @@ always @* begin
             result = 0;
             br_addr = pc + computed_broffset;
             case(funct3)
-                `RV_BR_EQ: br_taken = (sr1 == sr2);
-                `RV_BR_NE: br_taken = (sr1 != sr2);
-                `RV_BR_LT: br_taken = ($signed(sr1) < $signed(sr2));
-                `RV_BR_GE: br_taken = ($signed(sr1) >= $signed(sr2));
-                `RV_BR_LTU: br_taken = (sr1 < sr2);
-                `RV_BR_GEU: br_taken = (sr1 >= sr2);
+                `RV_BR_EQ: br_taken = (rs1 == rs2);
+                `RV_BR_NE: br_taken = (rs1 != rs2);
+                `RV_BR_LT: br_taken = ($signed(rs1) < $signed(rs2));
+                `RV_BR_GE: br_taken = ($signed(rs1) >= $signed(rs2));
+                `RV_BR_LTU: br_taken = (rs1 < rs2);
+                `RV_BR_GEU: br_taken = (rs1 >= rs2);
                 default: br_taken = 0;
             endcase
         end

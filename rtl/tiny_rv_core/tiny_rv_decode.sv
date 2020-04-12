@@ -1,3 +1,5 @@
+`include "./rv_opcodes.sv"
+
 module tiny_rv_decode(
     input wire i_clk,
     input wire i_reset,
@@ -43,9 +45,14 @@ always @(posedge i_clk) begin
         decode_rs2 <= fetch_inst[24:20];
         decode_rd <= fetch_inst[11:7];
         // TODO Imm
-        case (fetch_opcode) begin
+        case (fetch_opcode)
+        // U Type Imm
+            `RV_LUI,
+            `RV_AUIPC: decode_imm32 <= {fetch_inst[31:12], 12'b0};
+        // J Type Imm
+            `RV_JAL: decode_imm32 <= {{12{fetch_inst[31]}}, fetch_inst[19:12], fetch_inst[20], fetch_inst[30:25], fetch_inst[24:21], 1'b0};
             default: decode_imm32 <= 0;
-        end
+        endcase
     end
 end
 

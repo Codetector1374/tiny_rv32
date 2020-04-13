@@ -11,6 +11,27 @@ wire ld_new_pc;
 
 wire [31:0] fetch_pc, fetch_inst;
 
+wire flush_icache, icache_clean;
+
+`define FETCH_CACHE
+`ifdef FETCH_CACHE
+tiny_rv_fetch_directmap fetch(
+    .i_clk, .i_reset,
+    .i_pipe_stall(pipe_stall),
+    .i_pipe_flush(pipe_flush),
+    .i_new_pc(ld_new_pc), .i_pc(new_pc),
+    // Wishbone stuff
+    .o_wb_cyc(fetch_wb_cyc), .o_wb_stb(fetch_wb_stb), .o_wb_we(fetch_wb_we),
+    .o_wb_addr(fetch_wb_addr), .o_wb_data(fetch_wb_data_mosi), .o_wb_sel(fetch_wb_sel),
+    .i_wb_ack(fetch_wb_ack), .i_wb_stall(fetch_wb_stall), .i_wb_err(fetch_wb_err),
+    .i_wb_data(master_wb_data_miso),
+    // Buffer
+    .o_buf_pc(fetch_pc), .o_buf_inst(fetch_inst),
+    .i_clear_cache(flush_icache), .o_cache_clean(icache_clean)
+);
+
+`else
+    assign icache_clean = 1;
 tiny_rv_tb_fetch fetch(
     .i_clk,
     .i_reset,
@@ -23,6 +44,7 @@ tiny_rv_tb_fetch fetch(
     .o_fetched_pc(fetch_pc),
     .o_fetched_inst(fetch_inst)
 );
+`endif
 
 wire [31:0] decode_pc;
 wire [31:0] decode_inst;
@@ -150,10 +172,76 @@ tiny_rv_exec exec(
     .of1_val,
 
     .new_pc,
-    .ld_new_pc
+    .ld_new_pc,
+    .o_flush_icache(flush_icache),
+    .i_icache_clean(icache_clean),
+
+    .o_wb_cyc(mem_wb_cyc),
+    .o_wb_stb(mem_wb_stb),
+    .o_wb_we(mem_wb_we),
+    .o_wb_addr(mem_wb_addr),
+    .o_wb_data(mem_wb_data_mosi),
+    .o_wb_sel(mem_wb_sel),
+    .i_wb_ack(mem_wb_ack),
+    .i_wb_stall(mem_wb_stall),
+    .i_wb_err(mem_wb_err),
+    .i_wb_data(master_wb_data_miso)
 );
 
+// ========================
+//    WISHBONE
+// =========================
+    // MASTER
+    wire master_wb_cyc, master_wb_stb;
+    wire master_wb_we;
+    wire [29:0] master_wb_addr;
+    wire [31:0] master_wb_data_mosi;
+    wire [3:0] master_wb_sel;
+    wire master_wb_ack, master_wb_stall, master_wb_err;
+    wire [31:0] master_wb_data_miso;
+
+    // FETCH
+    wire fetch_wb_cyc, fetch_wb_stb;
+    wire fetch_wb_we;
+    wire [29:0] fetch_wb_addr;
+    wire [31:0] fetch_wb_data_mosi;
+    wire [3:0] fetch_wb_sel;
+    wire fetch_wb_ack, fetch_wb_stall, fetch_wb_err;
+
+    // MEM
+    wire mem_wb_cyc, mem_wb_stb;
+    wire mem_wb_we;
+    wire [29:0] mem_wb_addr;
+    wire [31:0] mem_wb_data_mosi;
+    wire [3:0] mem_wb_sel;
+    wire mem_wb_ack, mem_wb_stall, mem_wb_err;
 
 
 
-endmodule
+    wbpriarbiter master_arb (.i_clk,
+        // Bus A
+        .i_a_cyc(mem_wb_cyc), .i_a_stb(mem_wb_stb), .i_a_we(mem_wb_we), .i_a_adr(mem_wb_addr), .i_a_dat(mem_wb_data_mosi), .i_a_sel(mem_wb_sel), .o_a_ack(mem_wb_ack), .o_a_stall(mem_wb_stall), .o_a_err(mem_wb_err),
+        // Bus B
+        .i_b_cyc(fetch_wb_cyc), .i_b_stb(fetch_wb_stb), .i_b_we(fetch_wb_we), .i_b_adr(fetch_wb_addr), .i_b_dat(fetch_wb_data_mosi), .i_b_sel(fetch_wb_sel), .o_b_ack(fetch_wb_ack), .o_b_stall(fetch_wb_stall), .o_b_err(fetch_wb_err),
+        // Both buses
+        .o_cyc(master_wb_cyc), .o_stb(master_wb_stb), .o_we(master_wb_we), .o_adr(master_wb_addr), .o_dat(master_wb_data_mosi), .o_sel(master_wb_sel), .i_ack(master_wb_ack), .i_stall(master_wb_stall), .i_err(master_wb_err));
+
+//    `ifdef VERILATOR
+    memdev #(20) my_mem(
+        .i_clk(i_clk),
+        .i_wb_cyc(master_wb_cyc),
+        .i_wb_stb(master_wb_stb),
+        .i_wb_we(master_wb_we),
+        .i_wb_addr(master_wb_addr[19-2:0]),
+        .i_wb_data(master_wb_data_mosi),
+        .i_wb_sel(master_wb_sel),
+
+        .o_wb_ack(master_wb_ack),
+        .o_wb_stall(master_wb_stall),
+        .o_wb_data(master_wb_data_miso)
+    );
+//    `else
+
+
+
+endmodule : tiny_rv

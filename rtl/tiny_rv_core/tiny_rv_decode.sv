@@ -43,8 +43,10 @@ always @(posedge i_clk) begin
         decode_funct7 <= fetch_inst[31:25];
         decode_rs1 <= fetch_inst[19:15];
         decode_rs2 <= fetch_inst[24:20];
-        decode_rd <= fetch_inst[11:7];
-        // TODO Imm
+        if (fetch_opcode == `RV_STORE)
+            decode_rd <= 0;
+        else
+            decode_rd <= fetch_inst[11:7];
         case (fetch_opcode)
         // U Type Imm
             `RV_LUI,
@@ -53,8 +55,11 @@ always @(posedge i_clk) begin
             `RV_JAL: decode_imm32 <= {{12{fetch_inst[31]}}, fetch_inst[19:12], fetch_inst[20], fetch_inst[30:25], fetch_inst[24:21], 1'b0};
         // B Type Imm
             `RV_BRANCH: decode_imm32 <= {{20{fetch_inst[31]}}, fetch_inst[7], fetch_inst[30:25], fetch_inst[11:8], 1'b0};
-        // ALUI
+        // S Type Imm
+            `RV_STORE: decode_imm32 <= {{21{fetch_inst[31]}}, fetch_inst[30:25], fetch_inst[11:7]};
+        // I Type Imm
             `RV_ALUI,
+            `RV_LOAD,
             `RV_JALR: decode_imm32 <= {{21{fetch_inst[31]}}, fetch_inst[30:20]};
             default: decode_imm32 <= 0;
         endcase

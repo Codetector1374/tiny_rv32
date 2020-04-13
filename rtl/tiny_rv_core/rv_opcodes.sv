@@ -6,18 +6,12 @@
 `define RV_JAL      7'b1101111
 `define RV_JALR     7'b1100111
 `define RV_BRANCH   7'b1100011
-`define RV_LB       7'b0000011
-`define RV_LH       7'b0000011
-`define RV_LW       7'b0000011
-`define RV_LBU      7'b0000011
-`define RV_LHU      7'b0000011
-`define RV_SB       7'b0100011
-`define RV_SH       7'b0100011
-`define RV_SW       7'b0100011
+`define RV_LOAD     7'b0000011
+`define RV_STORE    7'b0100011
 `define RV_ALUI     7'b0010011
 `define RV_ALU      7'b0110011
 `define RV_FENCE    7'b0001111
-`define RV_SYSTEM    7'b1110011
+`define RV_SYSTEM   7'b1110011
 
 `define RV_BR_EQ    3'b000
 `define RV_BR_NE    3'b001
@@ -42,5 +36,13 @@
 `define RV_CSRRWI 3'b101
 `define RV_CSRRSI 3'b110
 `define RV_CSRRCI 3'b111
+
+`define RV_BYTE_OP      3'b000
+`define RV_BYTE_US      3'b100
+`define RV_HALF_OP      3'b001
+`define RV_HALF_US      3'b101
+`define RV_WORD         3'b010
+
+`define RV_FENCE_I  3'b001
 
 `endif

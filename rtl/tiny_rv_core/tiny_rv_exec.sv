@@ -1,3 +1,4 @@
+`default_nettype none;
 `include "./rv_opcodes.sv"
 module tiny_rv_exec(
     input wire i_clk,
@@ -24,15 +25,39 @@ module tiny_rv_exec(
     output wire [4:0] of1_reg,
 
     output wire [31:0] new_pc,
-    output wire ld_new_pc
-);
+    output wire ld_new_pc,
 
+    output reg o_flush_icache,
+    input wire i_icache_clean,
+
+    // Wishbone
+    output wire o_wb_cyc, o_wb_stb, o_wb_we,
+    output wire [29:0] o_wb_addr,
+    output wire [31:0] o_wb_data,
+    output wire [3:0] o_wb_sel,
+    input wire i_wb_ack, i_wb_stall, i_wb_err,
+    input wire [31:0] i_wb_data
+);
     wire [11:0] rr_csr = rr_inst[31:20];
 
-    assign exec_rr_flush = ld_new_pc;
+    assign exec_rr_flush = br_ldpc || fence_flush;
+    assign exec_rr_stall = mem_stall || fence_stall;
+
+    // BR PC
+    assign ld_new_pc = br_ldpc || fence_flush;
+    always @* begin
+        if (br_ldpc)
+            new_pc = br_pc;
+        else if (fence_flush)
+            new_pc = fence_pc;
+        else
+            new_pc = 32'b0;
+    end
 
     wire br_active;
     wire [31:0] br_result;
+    wire br_ldpc;
+    wire [31:0] br_pc;
 
     tiny_rv_br branch_unit(
         .i_clk,
@@ -46,8 +71,8 @@ module tiny_rv_exec(
         .rs1(rr_rs1),
         .rs2(rr_rs2),
 
-        .br_taken(ld_new_pc),
-        .br_addr(new_pc),
+        .br_taken(br_ldpc),
+        .br_addr(br_pc),
 
         .active(br_active),
         .result(br_result)
@@ -87,7 +112,61 @@ module tiny_rv_exec(
         .active(csr_active),
         .result(csr_result)
     );
-    wire any_active = br_active | alu_active | csr_active;
+
+    wire mem_stall, mem_active;
+    wire [31:0] mem_result;
+
+    tiny_rv_mem mem(
+        .i_clk,
+        .i_reset,
+        .stall(mem_stall),
+        .o_wb_cyc, .o_wb_stb, .o_wb_we,
+        .o_wb_addr, .o_wb_data, .o_wb_sel,
+        .i_wb_ack, .i_wb_stall, .i_wb_err,
+        .i_wb_data,
+
+        .opcode(rr_opcode),
+        .funct3(rr_funct3),
+        .rs1(rr_rs1),
+        .rs2(rr_rs2),
+        .offset(rr_imm32),
+
+        .result(mem_result),
+        .active(mem_active)
+    );
+
+
+    // BEGIN FENCE
+    wire fence_flush = fence_state == FENCE_DONE;
+    wire fence_stall = (fence_state != FENCE_DONE) && (rr_opcode == `RV_FENCE);
+    wire [31:0] fence_pc = rr_pc + 4;
+    localparam FENCE_IDLE = 2'h0, FENCE_EX = 2'h1, FENCE_DONE = 2'h2;
+    reg [1:0] fence_state = 0;
+    always @(posedge i_clk) begin
+        if (i_reset) begin
+            fence_state <= FENCE_IDLE;
+        end
+        else if (fence_state == FENCE_DONE)
+            fence_state <= FENCE_IDLE;
+        else if (rr_opcode == `RV_FENCE) begin
+            if (rr_funct3 == `RV_FENCE_I) begin
+                if (fence_state == FENCE_IDLE) begin
+                    o_flush_icache <= 1;
+                    fence_state <= FENCE_EX;
+                end
+                else if (fence_state == FENCE_EX) begin
+                    o_flush_icache <= 0;
+                    if (i_icache_clean)
+                        fence_state <= FENCE_DONE;
+                end
+            end
+            else
+                fence_state <= FENCE_DONE;
+        end
+    end
+    // END FENCE
+
+    wire any_active = br_active | alu_active | csr_active | mem_active;
 
     always @(posedge i_clk) begin
         if (i_reset) begin
@@ -111,6 +190,8 @@ module tiny_rv_exec(
             of1_val = alu_result;
         else if (csr_active)
             of1_val = csr_result;
+        else if (mem_active)
+            of1_val = mem_result;
         else
             of1_val = 32'b0;
     end

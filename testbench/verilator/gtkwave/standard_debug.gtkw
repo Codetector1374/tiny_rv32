@@ -1,18 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sun Apr 12 21:14:30 2020
+[*] Mon Apr 13 05:13:18 2020
 [*]
 [dumpfile] "/home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/cmake-build-debug/trace.vcd"
-[dumpfile_mtime] "Sun Apr 12 21:13:28 2020"
-[dumpfile_size] 18992
+[dumpfile_mtime] "Mon Apr 13 05:09:28 2020"
+[dumpfile_size] 1479593
 [savefile] "/home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/standard_debug.gtkw"
-[timestart] 8
-[size] 1916 1029
+[timestart] 299
+[size] 2556 1389
 [pos] -1 -1
-*-4.000000 78 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-5.000000 510 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.tiny_rv.
-[sst_width] 231
+[treeopen] TOP.tiny_rv.exec.
+[sst_width] 211
 [signals_width] 311
 [sst_expanded] 1
 [sst_vpaned_height] 426
@@ -62,9 +63,8 @@ TOP.tiny_rv.fetch.current_pc[31:0]
 -group_end
 @28
 TOP.tiny_rv.fetch.i_ld_new_addr
-@23
-TOP.tiny_rv.fetch.i_new_addr[31:0]
 @22
+TOP.tiny_rv.fetch.i_new_addr[31:0]
 TOP.tiny_rv.fetch.o_fetched_pc[31:0]
 TOP.tiny_rv.fetch.o_fetched_inst[31:0]
 @1000200
@@ -72,29 +72,29 @@ TOP.tiny_rv.fetch.o_fetched_inst[31:0]
 @800200
 -Decode
 @22
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_pc[31:0]
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_inst[31:0]
 @2028
-[color] 4
+[color] 2
 ^1 /home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/opcode.dict
 TOP.tiny_rv.decode.decode_opcode[6:0]
 @24
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_rs1[4:0]
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_rs2[4:0]
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_rd[4:0]
 @22
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_imm32[31:0]
 @28
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_funct3[2:0]
 @22
-[color] 4
+[color] 2
 TOP.tiny_rv.decode.decode_funct7[6:0]
 @1000200
 -Decode
@@ -119,30 +119,21 @@ TOP.tiny_rv.reg_read.data_p2[31:0]
 @200
 -
 @22
-[color] 2
 TOP.tiny_rv.reg_read.rr_pc[31:0]
-[color] 2
 TOP.tiny_rv.reg_read.rr_inst[31:0]
 @2028
-[color] 2
 ^1 /home/codetector/projects/github.com/codetector1374/tiny_rv32/testbench/verilator/gtkwave/opcode.dict
 TOP.tiny_rv.reg_read.rr_opcode[6:0]
 @22
-[color] 2
 TOP.tiny_rv.reg_read.rr_rs1[31:0]
-[color] 2
 TOP.tiny_rv.reg_read.rr_rs2[31:0]
 @24
-[color] 2
 TOP.tiny_rv.reg_read.rr_rd[4:0]
 @22
-[color] 2
 TOP.tiny_rv.reg_read.rr_imm32[31:0]
 @28
-[color] 2
 TOP.tiny_rv.reg_read.rr_funct3[2:0]
 @22
-[color] 2
 TOP.tiny_rv.reg_read.rr_funct7[6:0]
 @1000200
 -RegRead
@@ -200,6 +191,59 @@ TOP.tiny_rv.exec.exec_rd_val[31:0]
 TOP.tiny_rv.exec.exec_rr_flush
 [color] 2
 TOP.tiny_rv.exec.exec_rr_stall
+@800200
+-MEM Stage
+@23
+TOP.tiny_rv.exec.mem.result[31:0]
+@200
+-Wishbone
+@22
+TOP.tiny_rv.exec.mem.state[3:0]
+@28
+TOP.tiny_rv.exec.mem.o_wb_cyc
+TOP.tiny_rv.exec.mem.o_wb_stb
+TOP.tiny_rv.exec.mem.o_wb_we
+@22
+TOP.tiny_rv.exec.mem.o_wb_addr[29:0]
+TOP.tiny_rv.exec.mem.o_wb_data[31:0]
+TOP.tiny_rv.exec.mem.o_wb_sel[3:0]
+@28
+TOP.tiny_rv.exec.mem.i_wb_stall
+TOP.tiny_rv.exec.mem.i_wb_err
+TOP.tiny_rv.exec.mem.i_wb_ack
+@22
+TOP.tiny_rv.exec.mem.i_wb_data[31:0]
+@1000200
+-MEM Stage
+@800200
+-WB
+@28
+TOP.tiny_rv.mem_wb_ack
+@22
+TOP.tiny_rv.mem_wb_addr[29:0]
+@28
+TOP.tiny_rv.mem_wb_cyc
+@22
+TOP.tiny_rv.mem_wb_data_miso[31:0]
+TOP.tiny_rv.mem_wb_data_mosi[31:0]
+@28
+TOP.tiny_rv.mem_wb_err
+@22
+TOP.tiny_rv.mem_wb_sel[3:0]
+@28
+TOP.tiny_rv.mem_wb_stall
+TOP.tiny_rv.mem_wb_stb
+TOP.tiny_rv.mem_wb_we
+@1000200
+-WB
+@c00200
+-BranchUnit
+@28
+TOP.tiny_rv.exec.br_active
+@22
+TOP.tiny_rv.exec.br_result[31:0]
+@1401200
+-BranchUnit
 @1000200
 -Exec
 @c00200

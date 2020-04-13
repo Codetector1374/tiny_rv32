@@ -23,7 +23,7 @@ always @* begin
             active = 1;
             result = next_pc;
             br_taken = 1;
-            br_addr = computed_broffset;
+            br_addr = computed_broffset + pc;
         end
         `RV_JALR: begin
             active = 1;
